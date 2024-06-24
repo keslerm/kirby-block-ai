@@ -1,0 +1,21 @@
+{
+	"name": "keslerm/kirby-block-ai",
+	"description": "Block AI bots",
+	"license": "MIT",
+	"type": "kirby-plugin",
+	"version": "1.0.0",
+	"authors": [
+		{
+			"name": "Morgan Kesler",
+			"email": "keslerm@aegiszero.is"
+		}
+	],
+	"require": {
+		"getkirby/composer-installer": "^1.1"
+	},
+	"config": {
+		"allow-plugins": {
+			"getkirby/composer-installer": true
+		}
+	}
+}
