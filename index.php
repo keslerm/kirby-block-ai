@@ -3,38 +3,43 @@
 Kirby::plugin('keslerm/block-ai', [
 	'options' => [
 		'agents' => [
-			"AdsBot-Google",
+			"AI2Bot",
+			"Ai2Bot-Dolma",
 			"Amazonbot",
-			"anthropic-ai",
 			"Applebot",
-			"AwarioRssBot",
-			"AwarioSmartBot",
+			"Applebot-Extended",
 			"Bytespider",
 			"CCBot",
 			"ChatGPT-User",
-			"ClaudeBot",
 			"Claude-Web",
-			"cohere-ai",
-			"DataForSeoBot",
+			"ClaudeBot",
 			"Diffbot",
 			"FacebookBot",
 			"FriendlyCrawler",
+			"GPTBot",
 			"Google-Extended",
 			"GoogleOther",
-			"GPTBot",
-			"img2dataset",
+			"GoogleOther-Image",
+			"GoogleOther-Video",
+			"ICC-Crawler",
 			"ImagesiftBot",
-			"magpie-crawler",
-			"Meltwater",
-			"omgili",
-			"omgilibot",
-			"peer39_crawler",
-			"peer39_crawler/1.0",
+			"Meta-ExternalAgent",
+			"Meta-ExternalFetcher",
+			"OAI-SearchBot",
 			"PerplexityBot",
-			"PiplBot",
-			"scoop.it",
-			"Seekr",
-			"YouBot"
+			"PetalBot",
+			"Scrapy",
+			"Timpibot",
+			"VelenPublicWebCrawler",
+			"Webzio-Extended",
+			"YouBot",
+			"anthropic-ai",
+			"cohere-ai",
+			"facebookexternalhit",
+			"iaskspider/2.0",
+			"img2dataset",
+			"omgili",
+			"omgilibo"
 		],
 		'response_text' => '',
 		'response_code' => 402,
@@ -43,9 +48,13 @@ Kirby::plugin('keslerm/block-ai', [
 		'route:before' => function ($route, $path, $method) {
 			$agent = $this->request()->header('User-Agent');
 
-			if ($agent && in_array($agent, $this->option('keslerm.block-ai.agents')) ) {
-				http_response_code($this->option('keslerm.block-ai.response_code'));
-				die($this->option('keslerm.block-ai.response_text'));
+			if ($agent) {
+				foreach ($this->option('keslerm.block-ai.agents') as $robot) {
+					if (stripos($agent, $robot) !== false) {
+						http_response_code($this->option('keslerm.block-ai.response_code'));
+						die($this->option('keslerm.block-ai.response_text'));
+					}
+				}
 			}
 		}
 	]
